@@ -59,6 +59,7 @@ def loadTextures():
     global playerTextures, wallTextures, ceilingTextures, floorTextures
 
     global gameObjectList #глобальная переменная со всеми объектами в игре 
+    global gameObjectList #глобальная переменная со всеми объектами в игре 
     gameObjectList = []#делаем переменную пустым списком
     
     itemSprites1 = loadSpritesheet('assets/Items1.png', 16, 32, xScale=gameScale, yScale=gameScale) #режем вещи Items1.png на отдельные картинки-объекты
@@ -66,9 +67,10 @@ def loadTextures():
         gameObjectList.append(gameObj([randrange(0, xRes-itemSprites1[i].get_rect().w),randrange(0, yRes - itemSprites1[i].get_rect().h)], itemSprites1[i], 'item' + str(i))) 
     treeSprites = loadSpritesheet('assets/trees1.png', 114, 100, xScale=gameScale, yScale=gameScale) #режем деревья Trees1.png на отдельные картинки-объекты
     for i in range(len(treeSprites)): #деревья также разбрасываем в случайные места на карте
-        gameObjectList.append(gameObj([randrange(0, xRes-treeSprites[i].get_rect().w),randrange(0, yRes - treeSprites[i].get_rect().h)], treeSprites[i], 'a tree ' + str(i)))
+        gameObjectList.append(gameObj([randrange(0, xRes-treeSprites[i].get_rect().w),randrange(0, yRes - treeSprites[i].get_rect().h)], treeSprites[i], 'a tree ' + str(i)))   
     
-    
+    gameObjectList.sort(key=lambda x: x.pos[1]+x.lowestY) #сортируем массив объектов по ключу самого 
+
     playerTextures = loadCharacterSpritesheet('assets/' + playerType + '.png', 32, 32, 10, 10, xScale=gameScale, yScale=gameScale, colorkey=-1)
     wallTextures = loadSpritesheet('assets/wall.png', 16, 32, xScale=gameScale, yScale=gameScale)
     ceilingTextures = loadSpritesheet('assets/ceiling.png', 16, 16, xScale=gameScale, yScale=gameScale)
@@ -76,7 +78,7 @@ def loadTextures():
 
 
 
-  
+###    
 
 def loadLevel(tileData, decorationData, outputLevel):
     for y in range(0, 16):
@@ -173,15 +175,12 @@ def main():
                 if ((x, y - 1) == (pX, pY)):
                     screen.blit(player.image, (player.x + player.offsetX, player.y + player.offsetY))
 
-    #####################
-        playerPos = (player.x + player.offsetX, player.y + player.offsetY) #позиция игрока
-        for indx,_ in enumerate(gameObjectList):
+        playerPos = (player.x + player.offsetX, player.y + player.offsetY) #позиция игрока на карте x,y
+        for indx,_ in enumerate(gameObjectList): #в массиве всех созданным нами объектов
             curObj = gameObjectList[indx]
             screen.blit(curObj.img, curObj.pos) #рисуем картинку каждого объекта на поверхность игрового экрана
             if (playerPos[1] + player.rect[3]) >= (curObj.pos[1] + curObj.lowestY): #если самая нижняя точка игрока объекта выше игрока
                 screen.blit(player.image, playerPos) #рисуем игрока поверх объекта 
-
-
 
         pygame.display.flip()
 
