@@ -63,13 +63,13 @@ level.setAllDecorations(decorationData)
 def loadTextures():
     global playerTextures, wallTextures, ceilingTextures, floorTextures
 
-   
+    items1_Names = ['Ящик', 'Открый ящик', 'Сундук', 'Открый сундук', 'Бочка', 'Открытая бочка', 'Мешочек', 'Мешок', 'Большой мешок'] ###список с именами объектов в таком же порядке, как в tilset-картинке
     itemSprites1 = loadSpritesheet('assets/Items1.png', 16, 32, xScale=gameScale, yScale=gameScale) #режем вещи Items1.png на отдельные картинки-объекты
     for i in range(len(itemSprites1)): #для каждой нарезанной картинки-объекта, помещаем его в случайное место на карте
-        gameObjectList.append(models.gameObj([randrange(0, xRes-itemSprites1[i].get_rect().w),randrange(0, yRes - itemSprites1[i].get_rect().h)], itemSprites1[i], 'item' + str(i))) 
+        gameObjectList.append(models.gameObj([randrange(0, xRes-itemSprites1[i].get_rect().w),randrange(0, yRes - itemSprites1[i].get_rect().h)], itemSprites1[i], items1_Names[i])) 
     treeSprites = loadSpritesheet('assets/trees1.png', 114, 100, xScale=gameScale, yScale=gameScale) #режем деревья Trees1.png на отдельные картинки-объекты
     for i in range(len(treeSprites)): #деревья также разбрасываем в случайные места на карте
-        gameObjectList.append(models.gameObj([randrange(0, xRes-treeSprites[i].get_rect().w),randrange(0, yRes - treeSprites[i].get_rect().h)], treeSprites[i], 'tree ' + str(i)))   
+        gameObjectList.append(models.gameObj([randrange(0, xRes-treeSprites[i].get_rect().w),randrange(0, yRes - treeSprites[i].get_rect().h)], treeSprites[i], 'Дерево'))   
     
     gameObjectList.sort(key=lambda x: x.pos[1]+x.lowestY) #сортируем массив объектов по ключу самого 
 
