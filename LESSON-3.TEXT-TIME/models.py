@@ -125,9 +125,10 @@ class gameObj():
 
 ############# TEXT OBJECTS ################
 class textObj(): ### объекты, которые создаются при необходимости нарисовать текст на экране игры
-    def __init__(self, pos, text_str, exist_time=-1, fontName=None, fontSize=20):
+    def __init__(self, pos, text_str, text_color, exist_time=-1, fontName=None, fontSize=24):
         self.pos = pos #положение на экране
         self.text_str = text_str #строка текста
+        self.text_color = text_color
         self.alpha = 255 #прозрачность
         self.exist_time = exist_time #время существования текста до удаления, если -1, то текст постоянный
         self.textVisible = True #показывать или не показывать этот текст

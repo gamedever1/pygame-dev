@@ -63,7 +63,7 @@ level.setAllDecorations(decorationData)
 def loadTextures():
     global playerTextures, wallTextures, ceilingTextures, floorTextures
 
-    items1_Names = ['Ящик', 'Открый ящик', 'Сундук', 'Открый сундук', 'Бочка', 'Открытая бочка', 'Мешочек', 'Мешок', 'Большой мешок'] ###список с именами объектов в таком же порядке, как в tilset-картинке
+    items1_Names = ['Ящик', 'Открый ящик', 'Сундук', 'Открый сундук', 'Бочка', 'Открытая бочка', 'Мешочек', 'Мешок', 'Большой мешок'] ###список с именами объектов в таком же порядке, как в tileset-картинке
     itemSprites1 = loadSpritesheet('assets/Items1.png', 16, 32, xScale=gameScale, yScale=gameScale) #режем вещи Items1.png на отдельные картинки-объекты
     for i in range(len(itemSprites1)): #для каждой нарезанной картинки-объекта, помещаем его в случайное место на карте
         gameObjectList.append(models.gameObj([randrange(0, xRes-itemSprites1[i].get_rect().w),randrange(0, yRes - itemSprites1[i].get_rect().h)], itemSprites1[i], items1_Names[i])) 
@@ -155,7 +155,7 @@ def main():
                     for curObj in gameObjectList: ### Для всех объектов проверяем попадение курсора мыши в этот объект
                         pos_in_mask = mouse_pos[0] - curObj.img_rect.x, mouse_pos[1] - curObj.img_rect.y ### вычисление позиции курсора относительно координат маски прозрачности объекта
                         if curObj.img_rect.collidepoint(mouse_pos) and curObj.img_mask.get_at(pos_in_mask) == 1: ### проверяем, находится ли мышь на каком-то объекте, и прозрачен ли пиксель, на котором находится указатель мыши
-                            new_time_obj = models.textObj([mouse_pos[0],mouse_pos[1]], curObj.objName, 1500) ### Создаем текстовый объект с координатами указателя мыши, тектом равным имени объекта, временем существования 1500 миллисеукнд
+                            new_time_obj = models.textObj([mouse_pos[0],mouse_pos[1]], curObj.objName, (255,255,255) ,1500) ### Создаем текстовый объект с координатами указателя мыши, текстом, равным имени объекта под мышкой, белым цветом шрифта(255,255,255) и временем существования 1500 миллисеукнд
                             new_time_obj.time1 = time.time() ### в свойство текстового объекта time1 заносим время, когда этот текст создан                            
                             textObjectList.append(new_time_obj) ### Добавляем новую надпись(текстовый объект) в список всех надписей
                             break ### после первого найденного объекта под мышью, выходим из цикла, чтобы не появлялось несколько надписей в одном месте
@@ -204,8 +204,7 @@ def main():
                 textObj = textObjectList[indx] ### работаем с самим объектом, а не копией, как в случае просто for цикла, чтобы не тратить лишнюю память
                 if textObj.textVisible == False: ### Если в объекте указана невидимость
                     continue ### пропускаем этот объект
-                white_color = (255,255,255) ### белый цвет для текста
-                textSurf = pygame.font.SysFont(textObj.fontName, textObj.fontSize).render(textObj.text_str, False, white_color) ### рисуем текст(создаем поверхность Surface с текстом)
+                textSurf = pygame.font.SysFont(textObj.fontName, textObj.fontSize).render(textObj.text_str, False, textObj.text_color) ### рисуем текст(создаем поверхность Surface с текстом)
                 screen.blit( textSurf, textObj.pos ) ### накладываем поверхность с нарисованным текстом на поверхность экрана, выводя текст на игровой экран
                 if textObj.exist_time != -1: ### если у надписи указано время существования(exist_time)
                     elapsed = (time.time() - textObj.time1)*1000 ###проверяем сколько миллисекунд прошло со времени создания надписи
