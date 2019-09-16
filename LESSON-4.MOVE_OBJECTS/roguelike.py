@@ -156,11 +156,11 @@ def main():
                     for curObj in gameObjectList: # Для всех объектов проверяем попадение курсора мыши в этот объект
                         pos_in_mask = mouse_pos[0] - curObj.img_rect.x, mouse_pos[1] - curObj.img_rect.y # вычисление позиции курсора относительно координат маски прозрачности объекта
                         if curObj.img_rect.collidepoint(mouse_pos) and curObj.img_mask.get_at(pos_in_mask) == 1: # проверяем, находится ли мышь на каком-то объекте, и прозрачен ли пиксель, на котором находится указатель мыши
-                            new_time_obj = models.TextObject([mouse_pos[0],mouse_pos[1]], curObj.objName, (255,255,255) ,1500) # Создаем текстовый объект с координатами указателя мыши, текстом, равным имени объекта под мышкой, белым цветом шрифта(255,255,255) и временем существования 1500 миллисеукнд
-                            new_time_obj.time1 = time.time() # в свойство текстового объекта time1 заносим время, когда этот текст создан                            
+                            new_text_obj = models.TextObject([mouse_pos[0],mouse_pos[1]], curObj.objName, (255,255,255) ,1500) # Создаем текстовый объект с координатами указателя мыши, текстом, равным имени объекта под мышкой, белым цветом шрифта(255,255,255) и временем существования 1500 миллисеукнд
+                            new_text_obj.time1 = time.time() # в свойство текстового объекта time1 заносим время, когда этот текст создан                            
                             
                             if pygame.mouse.get_pressed()[2]:
-                                textObjectList.append(new_time_obj) # Добавляем новую надпись(текстовый объект) в список всех надписей
+                                textObjectList.append(new_text_obj) # Добавляем новую надпись(текстовый объект) в список всех надписей
 
                             curObj.followMouse = True ### устанавливаем флаг следования за мышкой(захватываем объект мышкой)
                             curObj.followMouseOffset = [mouse_pos[0] - curObj.pos[0], mouse_pos[1] - curObj.pos[1]] ### смещение мышки относительно нулевых координат области объекта
