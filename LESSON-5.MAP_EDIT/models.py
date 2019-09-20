@@ -12,14 +12,11 @@ class GameObject():
     def __init__(self, pos, obj_image, obj_props={}):
         self.pos = pos #позиция объекта на карте x,y
         self.img = obj_image #картинка объекта
-        ###D self.obj_name = obj_name # имя объекта
         self.obj_props=obj_props ### множество параметров объекта с их значениями
         
         self.follow_mouse = False #следовать ли за указателем мыши
         self.follow_mouse_offset = [0,0] #смещения указателя мыши от нулевый координат объекта
         
-        ###D self.can_move = can_move ###можно ли двигать объект в обычном режиме(без DEBUG)
-
         obj_image_rect = obj_image.get_rect()
         self.img_rect = obj_image_rect #получение прямоугольной Rect(x=0,y=0,w,h) картинки        
         colorkey = obj_image.get_at((0, 0)) #берет цвет самого верхнего левого пикселя
